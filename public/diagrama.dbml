@@ -1,0 +1,44 @@
+Table proyecto {
+id int [pk, increment] // Primary key, auto-incrementing
+nombre VARCHAR(50) // Type pof property
+}
+
+Table clasificacion {
+id int [pk, increment] // Primary key, auto-incrementing
+nombre VARCHAR(50) // Type pof property
+}
+
+Table fuentes_finaciamiento {
+id int [pk, increment] // Primary key, auto-incrementing
+nombre VARCHAR(50) // Type pof property
+}
+
+Table proveedores {
+id int [pk, increment] // Primary key, auto-incrementing
+nombre VARCHAR(50) // Type pof property
+
+}
+
+Table responsables {
+id int [pk, increment] // Primary key, auto-incrementing
+nombre VARCHAR(50) // Type pof property
+}
+
+Table bienes {
+id int [pk, increment] // Primary key, auto-incrementing
+nombre VARCHAR(50) // Type pof property
+}
+
+Table Activo{
+id int [pk, increment] // Primary key, auto-incrementing
+codigo_inventario VARCHAR(50) // Type pof property
+}
+
+Table personal{
+id int [pk, increment] // Primary key, auto-incrementing
+Nombres VARCHAR(50) // Type pof property
+Apellidos VARCHAR(50) // Type pof property
+n_cedula VARCHAR(50) // Type pof property
+n_empleado  int // Type pof property
+Sexo VARCHAR(50) // Type pof property
+}
