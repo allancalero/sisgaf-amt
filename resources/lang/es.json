@@ -1,0 +1,20 @@
+{
+  "Log in to your account": "Inicia sesión en tu cuenta",
+  "Enter your email and password below to log in": "Introduce tu correo y contraseña para iniciar sesión",
+  "Email address": "Correo electrónico",
+  "Password": "Contraseña",
+  "Remember me": "Recuérdame",
+  "Sign up": "Regístrate",
+  "Forgot password": "¿Olvidaste tu contraseña?",
+  "Enter your email to receive a password reset link": "Introduce tu correo para recibir un enlace de restablecimiento",
+  "Email password reset link": "Enviar enlace de restablecimiento",
+  "Log in": "Iniciar sesión",
+  "Register": "Registrarse",
+  "Dashboard": "Inicio",
+  "Settings": "Ajustes",
+  "Profile": "Perfil",
+  "Appearance": "Apariencia",
+  "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.": "Una vez que se elimine tu cuenta, todos sus datos se eliminarán permanentemente. Introduce tu contraseña para confirmar.",
+  "Confirm password": "Confirma tu contraseña",
+  "This is a secure area of the application. Please confirm your password before continuing.": "Esta es un área segura de la aplicación. Por favor confirma tu contraseña antes de continuar."
+}

@@ -9,4 +9,9 @@ class Proyecto extends Model
 {
     /** @use HasFactory<\Database\Factories\ProyectoFactory> */
     use HasFactory;
+    protected $table = 'proyectos';
+    protected $fillable = ['id', 'nombre'];
+
+
+
 }
