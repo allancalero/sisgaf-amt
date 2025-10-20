@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+use App\Livewire\Proyectos;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,5 +31,10 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
+
+
+Route::get('/proyectos', Proyectos::class)
+            ->name('proyectos')
+            ->middleware(['auth']);
 
 require __DIR__.'/auth.php';

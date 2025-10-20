@@ -6,16 +6,26 @@
     <body class="min-h-screen bg-white antialiased dark:bg-linear-to-b dark:from-neutral-950 dark:to-neutral-900">
         <div class="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0">
             <div class="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-e dark:border-neutral-800">
-                <div class="absolute inset-0 bg-neutral-900"></div>
+                @php
+                    $hero = file_exists(public_path('images/hero.svg'))
+                        ? asset('images/hero.svg')
+                        : 'https://picsum.photos/1200/800';
+                @endphp
+
+                <div class="absolute inset-0 bg-neutral-900 bg-cover bg-center"
+                    style="background-image: url('{{ $hero }}');">
+                </div>
                 <a href="{{ route('home') }}" class="relative z-20 flex items-center text-lg font-medium" wire:navigate>
                     <span class="flex h-10 w-10 items-center justify-center rounded-md">
                         <x-app-logo-icon class="me-2 h-7 fill-current text-white" />
                     </span>
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'laravel') }}
                 </a>
 
                 @php
-                    [$message, $author] = str(Illuminate\Foundation\Inspiring::quotes()->random())->explode('-');
+                    // Mensaje personalizado (no aleatorio). Cambia aquí el contenido si lo deseas.
+                    $message = 'Bienvenido al Sistema de Gestión de Activos — administra tus proyectos con facilidad.';
+                    $author = 'Equipo AMT';
                 @endphp
 
                 <div class="relative z-20 mt-auto">
