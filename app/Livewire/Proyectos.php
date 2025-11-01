@@ -17,6 +17,7 @@ class Proyectos extends Component
 
     protected $rules = [
         'nombre' => 'required|string|max:255',
+        
     ];  
 
     //resetear los campos del formulario
@@ -34,7 +35,14 @@ class Proyectos extends Component
         ]);
 
         $this->resetForm();
-        session()->flash('message', 'Proyecto creado exitosamente.');   
+        session()->flash('message', 'Proyecto creado exitosamente.');
+
+        // Close the Flux modal named 'crear-proyecto' by dispatching the event the modal listens for
+        // Livewire v3 uses $this->dispatch(...) to dispatch component events that are forwarded to the frontend.
+        $this->dispatch('modal-close', ['name' => 'crear-proyecto']);
+
+        // Notify the browser to show a toast notification
+        $this->dispatch('notify', ['message' => 'Proyecto creado exitosamente.']);
     }
     
     public function render()

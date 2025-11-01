@@ -7,12 +7,12 @@
         <flux:header container class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
-            <a href="{{ route('dashboard') }}" class="ms-2 me-5 flex items-center space-x-2 rtl:space-x-reverse lg:ms-0" wire:navigate>
+            <a href="{{ route('dashboard') }}" class="ms-2 me-5 flex items-center space-x-2 rtl:space-x-reverse lg:ms-0" wire:navigate data-prefetch>
                 <x-app-logo />
             </a>
 
             <flux:navbar class="-mb-px max-lg:hidden">
-                <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate data-prefetch>
                     {{ __('Dashboard') }}
                 </flux:navbar.item>
             </flux:navbar>
@@ -92,13 +92,13 @@
         <flux:sidebar stashable sticky class="lg:hidden border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-            <a href="{{ route('dashboard') }}" class="ms-1 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+            <a href="{{ route('dashboard') }}" class="ms-1 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate data-prefetch>
                 <x-app-logo />
             </a>
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')">
-                    <flux:navlist.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                    <flux:navlist.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate data-prefetch>
                     {{ __('Dashboard') }}
                     </flux:navlist.item>
                 </flux:navlist.group>
@@ -118,6 +118,35 @@
         </flux:sidebar>
 
         {{ $slot }}
+
+        <script>
+            // Prefetch internal links on hover/focus/touchstart unless they opt-out with data-no-prefetch
+            (function(){
+                const prefetched = new Set();
+                function isLocal(href){
+                    try{ const u=new URL(href, location.href); return u.origin === location.origin && u.protocol.startsWith('http'); }catch(e){return false}
+                }
+                function shouldPrefetch(anchor){
+                    if(!anchor || !anchor.href) return false;
+                    if(anchor.target === '_blank') return false;
+                    if(anchor.hasAttribute('data-no-prefetch')) return false;
+                    // skip anchors that are just hashes or mailto/tel
+                    if(anchor.href.startsWith('#') || anchor.href.startsWith('mailto:') || anchor.href.startsWith('tel:')) return false;
+                    return isLocal(anchor.href);
+                }
+                function prefetch(href){
+                    if(!href || prefetched.has(href)) return;
+                    prefetched.add(href);
+                    const l = document.createElement('link'); l.rel = 'prefetch'; l.href = href; l.as = 'document'; document.head.appendChild(l);
+                }
+                function handleEvent(e){
+                    const a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+                    if(!a) return;
+                    if(shouldPrefetch(a)) prefetch(a.href);
+                }
+                ['mouseover','touchstart','focusin'].forEach(evt => document.addEventListener(evt, handleEvent, {passive:true}));
+            })();
+        </script>
 
         @fluxScripts
     </body>

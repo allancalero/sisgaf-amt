@@ -1,4 +1,9 @@
 <div>
+    <!-- Toast container -->
+    <div id="toast" class="fixed bottom-6 end-6 z-50 hidden">
+        <div id="toast-body" class="inline-flex items-center gap-3 rounded-md bg-zinc-900 text-white px-4 py-2 shadow-lg"></div>
+    </div>
+
     <flux:breadcrumbs>
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Inicio</flux:breadcrumbs.item>
         <flux:breadcrumbs.item href="{{ route('proyectos') }}">Listado de Proyectos</flux:breadcrumbs.item>
@@ -50,10 +55,7 @@
 </flux:modal>
 
 <br>
-<flux:textarea
-    label="Order notes"
-    placeholder="No lettuce, tomato, or onion..."
-/>
+
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white dark:bg-neutral-900 border border-b divide-y divide-gray-200" style="width: 100%">
             <thead class="bg-gray-50 dark:bg-neutral-800">
@@ -83,4 +85,36 @@
             @endif
         </div>
     </div>
+    <script>
+        (function(){
+            const toast = document.getElementById('toast');
+            const toastBody = document.getElementById('toast-body');
+            if(!toast || !toastBody) return;
+            function showToast(message, timeout = 3000){
+                toastBody.textContent = message;
+                toast.classList.remove('hidden');
+                toast.classList.add('opacity-0');
+                // animate in
+                requestAnimationFrame(()=>{
+                    toast.classList.remove('opacity-0');
+                    toast.classList.add('transition','duration-300','opacity-100');
+                });
+                setTimeout(()=>{
+                    toast.classList.remove('opacity-100');
+                    toast.classList.add('opacity-0');
+                    setTimeout(()=> toast.classList.add('hidden'), 300);
+                }, timeout);
+            }
+
+            // Listen for Livewire browser event
+            window.addEventListener('notify', function(e){
+                if(e && e.detail && e.detail.message) showToast(e.detail.message);
+            });
+
+            // If server rendered a flash message in session, show it on load
+            @if(session('message'))
+                document.addEventListener('DOMContentLoaded', function(){ showToast(@json(session('message'))); });
+            @endif
+        })();
+    </script>
 </div>
