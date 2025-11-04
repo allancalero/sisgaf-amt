@@ -14,6 +14,7 @@ class Proyectos extends Component
     //campos del formulario
 
     public $nombre;
+    public $showCreate = false;
 
     protected $rules = [
         'nombre' => 'required|string|max:255',
@@ -36,13 +37,16 @@ class Proyectos extends Component
 
         $this->resetForm();
         session()->flash('message', 'Proyecto creado exitosamente.');
-
-        // Close the Flux modal named 'crear-proyecto' by dispatching the event the modal listens for
-        // Livewire v3 uses $this->dispatch(...) to dispatch component events that are forwarded to the frontend.
-        $this->dispatch('modal-close', ['name' => 'crear-proyecto']);
+        // Hide the inline create form
+        $this->showCreate = false;
 
         // Notify the browser to show a toast notification
         $this->dispatch('notify', ['message' => 'Proyecto creado exitosamente.']);
+    }
+
+    public function toggleCreate()
+    {
+        $this->showCreate = ! $this->showCreate;
     }
     
     public function render()

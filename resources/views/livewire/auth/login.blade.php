@@ -146,13 +146,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 {{ __('Log in') }}
             </flux:button>
         </div>
-        @if (Route::has('password.request'))
-            <div class="mt-3">
-                <flux:link :href="route('password.request')" wire:navigate>
-                    <flux:button type="button" variant="outline" class="w-full">{{ __('Recuperar cuenta') }}</flux:button>
-                </flux:link>
-            </div>
-        @endif
+        {{-- Password recovery modal removed per request (keeps small helper link above) --}}
     </form>
 
     @if (Route::has('register'))

@@ -37,4 +37,14 @@ Route::get('/proyectos', Proyectos::class)
             ->name('proyectos')
             ->middleware(['auth']);
 
+// Reports
+Route::get('/report/proyectos', [\App\Http\Controllers\ReportController::class, 'exportProyectos'])
+    ->name('report.proyectos')
+    ->middleware(['auth']);
+
+// Responsables placeholder route (prevents RouteNotFoundException from sidebar)
+Route::view('/responsables', 'responsables.index')
+    ->middleware(['auth'])
+    ->name('responsables');
+
 require __DIR__.'/auth.php';
