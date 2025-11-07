@@ -42,9 +42,13 @@ Route::get('/report/proyectos', [\App\Http\Controllers\ReportController::class, 
     ->name('report.proyectos')
     ->middleware(['auth']);
 
-// Responsables placeholder route (prevents RouteNotFoundException from sidebar)
-Route::view('/responsables', 'responsables.index')
-    ->middleware(['auth'])
-    ->name('responsables');
+// Responsables route
+Route::get('/responsables', \App\Livewire\Responsables::class)
+    ->name('responsables')
+    ->middleware(['auth']);
 
-require __DIR__.'/auth.php';
+// Areas route (similar to Responsables)
+Route::get('/areas', \App\Livewire\Areas::class)
+    ->name('areas')
+    ->middleware(['auth']);
+

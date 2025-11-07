@@ -4,10 +4,10 @@
         <div id="toast-body" class="inline-flex items-center gap-3 rounded-md bg-zinc-900 text-white px-4 py-2 shadow-lg"></div>
     </div>
 
-   <flux:breadcrumbs>
+    <flux:breadcrumbs>
         <flux:breadcrumbs.item href="{{ route('dashboard') }}">Inicio</flux:breadcrumbs.item>
-        <flux:breadcrumbs.item href="{{ route('proyectos') }}">Listado de Proyectos</flux:breadcrumbs.item>
-         </flux:breadcrumbs>
+        <flux:breadcrumbs.item href="{{ route('responsables') }}">Listado de Responsables</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
 
     <div class="my-4 flex items-center justify-between">
         <hr class="flex-1 mr-4">
@@ -20,14 +20,14 @@
 
 
     <div class="mb-4">
-        <flux:button type="button" variant="primary" wire:click.prevent="toggleCreate">Crear nuevo proyecto</flux:button>
+        <flux:button type="button" variant="primary" wire:click.prevent="toggleCreate">Crear nuevo responsable</flux:button>
     </div>
 
     @if($showCreate)
         <div class="mb-6 p-4 border rounded bg-white dark:bg-neutral-900">
             <div class="space-y-4">
                 <div>
-                    <flux:heading size="lg">Crear nuevo</flux:heading>
+                    <flux:heading size="lg">Crear nuevo responsable</flux:heading>
                     <flux:text class="mt-2">Complete los campos requeridos</flux:text>
                 </div>
             </div>
@@ -35,15 +35,36 @@
             <form wire:submit.prevent="save" class="mt-4">
                 <div class="space-y-4">
                     <div>
-                        <flux:label for="nombre">Nombre del Proyecto<b>(*)</b></flux:label>
-                        <flux:input id="nombre" type="text" wire:model="nombre" required class="mt-1 w-full" />
-                        @error('nombre') <flux:text class="text-red-600 text-sm">{{ $message }}</flux:text> @enderror
+                        <flux:label for="Nombres">Nombres<b>(*)</b></flux:label>
+                        <flux:input id="Nombres" type="text" wire:model="Nombres" required class="mt-1 w-full" />
+                        @error('Nombres') <flux:text class="text-red-600 text-sm">{{ $message }}</flux:text> @enderror
+                    </div>
+
+                    <div>
+                        <flux:label for="Apellidos">Apellidos<b>(*)</b></flux:label>
+                        <flux:input id="Apellidos" type="text" wire:model="Apellidos" required class="mt-1 w-full" />
+                        @error('Apellidos') <flux:text class="text-red-600 text-sm">{{ $message }}</flux:text> @enderror
+                    </div>
+
+                    <div>
+                        <flux:label for="Correo">Correo<b>(*)</b></flux:label>
+                        <flux:input id="Correo" type="email" wire:model="Correo" required class="mt-1 w-full" />
+                        @error('Correo') <flux:text class="text-red-600 text-sm">{{ $message }}</flux:text> @enderror
+                    </div>
+
+                    <div>
+                        <flux:label for="Estado">Estado</flux:label>
+                        <flux:select id="Estado" wire:model="Estado" class="mt-1 w-full">
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                        </flux:select>
+                        @error('Estado') <flux:text class="text-red-600 text-sm">{{ $message }}</flux:text> @enderror
                     </div>
                 </div>
 
                 <div class="mt-4 flex justify-end gap-3">
                     <flux:button type="button" variant="outline" wire:click.prevent="toggleCreate">Cancelar</flux:button>
-                    <flux:button type="submit" variant="primary">Crear Proyecto</flux:button>
+                    <flux:button type="submit" variant="primary">Crear Responsable</flux:button>
                 </div>
             </form>
         </div>
@@ -56,20 +77,24 @@
             <thead class="bg-gray-50 dark:bg-neutral-800">
                 <tr>
                     <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ID</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nombre del Proyecto</th>
-                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Descripción</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nombres</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Apellidos</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Correo</th>
+                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Estado</th>
                 </tr>
             </thead>
             <tbody class="bg-white dark:bg-transparent divide-y divide-gray-200 dark:divide-neutral-700">
-                @forelse($proyectos as $proyecto)
+                @forelse($responsables as $responsable)
                     <tr class="odd:bg-white even:bg-gray-50 dark:odd:bg-neutral-900 dark:even:bg-neutral-800">
-                        <td class="px-4 py-3 whitespace-nowrap text-gray-900 dark:text-gray-200">{{ $proyecto->id }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap text-gray-900 dark:text-gray-200">{{ $proyecto->nombre }}</td>
-                        <td class="px-4 py-3 whitespace-normal text-gray-900 dark:text-gray-200">{{ $proyecto->descripcion }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-gray-900 dark:text-gray-200">{{ $responsable->id }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-gray-900 dark:text-gray-200">{{ $responsable->Nombres }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-gray-900 dark:text-gray-200">{{ $responsable->Apellidos }}</td>
+                        <td class="px-4 py-3 whitespace-normal text-gray-900 dark:text-gray-200">{{ $responsable->Correo }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap text-gray-900 dark:text-gray-200">{{ $responsable->Estado }}</td>
                     </tr>
                 @empty
                     <tr>
-                        <td class="px-4 py-3 text-gray-700 dark:text-gray-300" colspan="3">No hay proyectos disponibles.</td>
+                        <td class="px-4 py-3 text-gray-700 dark:text-gray-300" colspan="5">No hay responsables disponibles.</td>
                     </tr>
                 @endforelse
             </tbody>

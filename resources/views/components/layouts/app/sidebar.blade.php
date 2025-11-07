@@ -14,9 +14,10 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Dashboard')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Inicio') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('proyectos')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Proyecto') }}</flux:navlist.item>
-                    <flux:navlist.item icon="home" :href="route('responsables')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Responsable') }}</flux:navlist.item>
-                    <flux:navlist.item icon="document-arrow-down" :href="route('report.proyectos')" target="_blank">{{ __('Reporte') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('proyectos')" :current="request()->routeIs('proyectos')" wire:navigate>{{ __('Proyecto') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('responsables')" :current="request()->routeIs('responsables')" wire:navigate>{{ __('Responsable') }}</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('areas')" :current="request()->routeIs('areas')" wire:navigate>{{ __('Área') }}</flux:navlist.item>
+                    <flux:navlist.item icon="document-arrow-down" :href="route('report.proyectos')" :current="request()->routeIs('report.*')" target="_blank">{{ __('Reporte') }}</flux:navlist.item>
 
                 </flux:navlist.group>
             </flux:navlist>

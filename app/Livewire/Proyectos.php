@@ -42,6 +42,8 @@ class Proyectos extends Component
 
         // Notify the browser to show a toast notification
         $this->dispatch('notify', ['message' => 'Proyecto creado exitosamente.']);
+    // notify dashboard to refresh counts (browser event -> will trigger Livewire emit in client)
+    $this->dispatch('dashboard-refresh');
     }
 
     public function toggleCreate()
